@@ -10,10 +10,12 @@ To set up the python virtual environment and download the SDXL model weights for
     ```sh
     chmod 755 initSetup.sh
     ```
-1. Run the setup script itself. (**Be forewarned:** this step may take quite a while to complete.)
+1. Run the setup script itself.
     ```sh
     ./initSetup.sh
     ```
+
+**Warning:** Depending on the download speed of your internet connection, the initial setup script may take a very long time to complete its work.
 
 The setup script will tell you when it is complete by printing this message to the console:
 ```
