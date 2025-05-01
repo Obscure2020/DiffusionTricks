@@ -1,6 +1,6 @@
 # Diffusion Tricks Project
 
-Currently being worked on by Joey Sodergren and Akash (extend name?). More description to be added later.
+Currently being worked on by Joey Sodergren and Akash Prasad. More description to be added later.
 
 ## Initial Setup
 To set up the python virtual environment and download the SDXL model weights for this project, perform the following sequence of steps.
