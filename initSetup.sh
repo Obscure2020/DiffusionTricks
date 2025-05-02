@@ -9,7 +9,7 @@ echo ""
 rm -rf venv
 python3 -m venv "$(pwd)/venv"
 source venv/bin/activate
-pip3 install --require-virtualenv diffusers transformers accelerate
+pip3 install --require-virtualenv diffusers transformers accelerate pyoxipng
 echo ""
 
 echo 'from diffusers import StableDiffusionXLPipeline, StableDiffusionXLImg2ImgPipeline' > initSetupWorker.py
