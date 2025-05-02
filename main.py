@@ -22,5 +22,5 @@ img_bytes = io.BytesIO()
 img.save(img_bytes, format="PNG", compress_level=9)
 img_bytes = img_bytes.getvalue()
 img_bytes_optim = oxipng.optimize_from_memory(img_bytes, level=6, force=True, filter=[oxipng.RowFilter.NoOp, oxipng.RowFilter.Sub, oxipng.RowFilter.Up, oxipng.RowFilter.Average, oxipng.RowFilter.Paeth, oxipng.RowFilter.Bigrams, oxipng.RowFilter.BigEnt, oxipng.RowFilter.Brute], interlace=oxipng.Interlacing.Off, optimize_alpha=True, strip=oxipng.StripChunks.safe(), deflate=oxipng.Deflaters.libdeflater(12))
-with open("test_img_13_CUDA.png", "wb") as f:
+with open("test_img_14.png", "wb") as f:
     f.write(img_bytes_optim)
