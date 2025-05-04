@@ -21,7 +21,7 @@ def write_PNG_from_ndarray(filename, arr_obj):
     img_bytes = io.BytesIO()
     img.save(img_bytes, format="PNG", compress_level=9)
     img_bytes = img_bytes.getvalue()
-    img_bytes_optim = oxipng.optimize_from_memory(img_bytes, level=6, force=True, filter=[oxipng.RowFilter.NoOp, oxipng.RowFilter.Sub, oxipng.RowFilter.Up, oxipng.RowFilter.Average, oxipng.RowFilter.Paeth, oxipng.RowFilter.Bigrams, oxipng.RowFilter.BigEnt, oxipng.RowFilter.Brute], interlace=oxipng.Interlacing.Off, optimize_alpha=True, strip=oxipng.StripChunks.safe(), deflate=oxipng.Deflaters.libdeflater(12))
+    img_bytes_optim = oxipng.optimize_from_memory(img_bytes, level=6, force=True, filter=[oxipng.RowFilter.NoOp, oxipng.RowFilter.Sub, oxipng.RowFilter.Up, oxipng.RowFilter.Average, oxipng.RowFilter.Paeth, oxipng.RowFilter.Bigrams, oxipng.RowFilter.BigEnt, oxipng.RowFilter.Brute], interlace=oxipng.Interlacing.Off, optimize_alpha=True, strip=oxipng.StripChunks.safe(), deflate=oxipng.Deflaters.zopfli(15))
     with open(filename, "wb") as f:
         f.write(img_bytes_optim)
 
@@ -44,6 +44,7 @@ def transform_img_halve_undo(arr_obj):
     return np.roll(arr_obj, roll_amount, axis)
 
 prompt = "Albert Einstein, impressionist painting, 8k"
+grey_img_numpy = np.full((512,512,3), fill_value=0.5, dtype=np.float32)
 
 pipeline = []
 if torch.cuda.is_available():
