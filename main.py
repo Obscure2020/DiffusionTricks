@@ -73,8 +73,8 @@ def recombine_images(img_a, img_b):
             img_result[y, x, 2] = (img_mean[y, x, 2] - blue_min) / blue_scale
     return img_result.astype(np.float32)
 
-prompt_a = "Albert Einstein, impressionist painting, 8k"
-prompt_b = "Marilyn Monroe, impressionist painting, 8k"
+prompt_a = "white horse, close up, face, clouds, impressionist painting, 8k"
+prompt_b = "white duck, close up, face, head, feathers, impressionist painting, 8k"
 strength_schedule = [0.98, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
 steps_schedule = [4, 4, 4, 5, 5, 6, 7, 8, 9, 10]
 
@@ -83,17 +83,16 @@ if USE_CUDA:
     print("Initializing CUDA pipeline...")
     pipeline = AutoPipelineForImage2Image.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False).to("cuda")
     pipeline.unet.to(memory_format=torch.channels_last)
-    #pipeline.enable_model_cpu_offload() # This line contains a hidden, implicit default that specifies that CUDA should be used.
 else:
     print("Initializing CPU pipeline...")
     pipeline = AutoPipelineForImage2Image.from_pretrained("stabilityai/sdxl-turbo", use_safetensors=True, add_watermarker=False).to("cpu")
     pipeline.unet = torch.compile(pipeline.unet, mode="reduce-overhead", fullgraph=True)
 
 # The main event: two-prompt generation!
-img_a = np.random.random_sample((512,512,3)).astype(np.float32)
-img_b = np.random.random_sample((512,512,3)).astype(np.float32)
 transform_img = transform_img_180
 untransform_img = transform_img_180_undo
+img_a = np.random.random_sample((512,512,3)).astype(np.float32)
+img_b = transform_img(img_a)
 for i in range(len(steps_schedule)):
     img_a = pipeline(prompt_a, image=img_a, num_images_per_prompt=1, num_inference_steps=steps_schedule[i], strength=strength_schedule[i], guidance_scale=0.0, output_type="np").images[0]
     img_b = pipeline(prompt_b, image=img_b, num_images_per_prompt=1, num_inference_steps=steps_schedule[i], strength=strength_schedule[i], guidance_scale=0.0, output_type="np").images[0]
