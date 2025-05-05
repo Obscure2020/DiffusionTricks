@@ -73,8 +73,8 @@ def recombine_images(img_a, img_b):
             img_result[y, x, 2] = (img_mean[y, x, 2] - blue_min) / blue_scale
     return img_result.astype(np.float32)
 
-prompt_a = "white horse, close up, face, clouds, impressionist painting, 8k"
-prompt_b = "white duck, close up, face, head, feathers, impressionist painting, 8k"
+prompt_a = "horse, close up, face, impressionist painting, 8k"
+prompt_b = "duck, close up, face, head, impressionist painting, 8k"
 strength_schedule = [0.98, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
 steps_schedule = [4, 4, 4, 5, 5, 6, 7, 8, 9, 10]
 
@@ -103,11 +103,10 @@ for i in range(len(steps_schedule)):
     write_PNG_from_ndarray(f"test_img_a_{i}.png", img_a)
     write_PNG_from_ndarray(f"test_img_b_{i}.png", img_b)
 
-# Clean up pipeline memory after we're done using it
+print("Work complete. Cleaning up and exiting...")
+
 del pipeline
 gc.collect()
 if USE_CUDA:
     torch.cuda.empty_cache()
     torch.cuda.ipc_collect()
-
-print("Work complete. Cleaning up and exiting...")

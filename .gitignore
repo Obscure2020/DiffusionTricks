@@ -1,2 +1,5 @@
 venv
 initSetupWorker.py
+*.pdf
+*.bbl
+*.synctex.gz
