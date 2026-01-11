@@ -1,9 +1,9 @@
 # Diffusion Tricks Project
 
-Developed in April/May 2025 by Joey Sodergren and Akash Prasad an exploratory final project for Advanced Artificial Intelligence at Wright State University.
+Developed in April/May 2025 by Joey Sodergren and Akash Prasad as an exploratory final project for Advanced Artificial Intelligence at Wright State University.
 
 ## Initial Setup
-To set up the python virtual environment and download the SDXL model weights for this project, perform the following sequence of steps.
+To set up the Python virtual environment and download the SDXL model weights for this project, perform the following sequence of steps.
 
 1. Open a terminal into the directory containing this repo.
 1. Grant execute permissions to the initial setup script.
@@ -31,6 +31,12 @@ deactivate
 ```
 
 ## Documentation
-The LaTeX source of our project writeup is present in the `latex_source` directory. **Note:** the document may not compile unless the following conditions are satisfied:
-- The document is compiled through XeLaTeX for extended font support
-- Times New Roman and Cascadia Code are installed as system fonts.
+The LaTeX source of our project writeup is present in the `latex_source` directory. Before attempting to compile the document into a readable PDF, we recommend that you ensure your system meets these requirements:
+
+- An up-to-date installation of [TeX Live](https://www.tug.org/texlive/) should be present and ready to use.
+- Times New Roman and Cascadia Code should be installed as system fonts.
+
+If those conditions have been satisfied, then you can run the following command in the `latex_source` directory to compile the document:
+```
+latexmk -interaction=nonstopmode -file-line-error -pdf -xelatex "Diffusion Tricks.tex" && latexmk -c "Diffusion Tricks.tex"
+```
